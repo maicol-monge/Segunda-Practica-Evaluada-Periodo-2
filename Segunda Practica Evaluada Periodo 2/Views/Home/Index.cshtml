@@ -2,28 +2,34 @@
     ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="fw-bolder">SEGUNDA PRACTICA EVALUADA DEL SEGUNDO PERIODO</h1>
+<div class="container text-center mt-5">
+    <h1 class="fw-bolder display-4 text-primary">SEGUNDA PRÁCTICA EVALUADA DEL SEGUNDO PERIODO</h1>
     <br />
 
-    <br />
-    <h2 class="fw-bold">Aplicación de Técnicas de Ingeniería de Software</h2>
-    <br />
-
-    <br />
-    <h3 class="">Maicol Josué Monge Santamaría</h3>
-    <h3 class="">Ever Alexander Zamora Ramírez</h3>
+    <h2 class="fw-bold text-secondary">Aplicación de Técnicas de Ingeniería de Software</h2>
     <br />
 
+    <h3 class="text-dark">Maicol Josué Monge Santamaría</h3>
+    <h3 class="text-dark">Ever Alexander Zamora Ramírez</h3>
     <br />
-    <h3 class="fw-bolder">Opciones</h3>
-    <br />
-  @*   <div class = "d-flex justify-content-evenly">
-        <a class="btn btn-outline-light" asp-area="" asp-controller="Tablas" asp-action="Tablas">Tablas</a>
-        <a class="btn btn-outline-light" asp-area="" asp-controller="Sueldo" asp-action="Sueldo">Sueldo</a>
-        <a class="btn btn-outline-light" asp-area="" asp-controller="Cadena" asp-action="Cadena">Cadena</a>
-    </div> *@
 
+    <div class="my-4">
+        <h3 class="fw-bolder">Opciones</h3>
+        <div class="d-flex justify-content-evenly">
+            <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Factura" asp-action="Factura">Factura</a>
+        </div>
+    </div>
 
-
+    @* <footer class="mt-5">
+        <p class="text-muted">&copy; 2024 Maicol Josué Monge Santamaría & Ever Alexander Zamora Ramírez</p>
+    </footer> *@
 </div>
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Color de fondo suave */
+    }
+    h1, h2, h3 {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra para el texto */
+    }
+</style>
