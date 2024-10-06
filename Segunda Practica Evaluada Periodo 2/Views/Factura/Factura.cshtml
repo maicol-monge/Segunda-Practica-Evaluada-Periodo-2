@@ -8,12 +8,69 @@
     <title>Generar Factura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .section-header { background-color: #F8C3C3; padding: 10px; text-transform: uppercase; font-weight: bold; }
+        body {
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .section-header {
+            background-color: #2E79F8;
+            color: white;
+            padding: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 2px solid #dee2e6;
+        }
+
+        .table th {
+            text-align: center;
+        }
+
+        .total-card {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+
+            .total-card .card-header {
+                background-color: #2E79F8;
+                color: white;
+            }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+        }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Generar Factura</h2>
+        <h2 class="text-center mb-4">Generar Factura</h2>
         <form asp-action="Factura" method="post">
             <!-- Información de contacto -->
             <div class="section-header">Información de Contacto</div>
@@ -35,22 +92,35 @@
             </div>
 
             <!-- Productos -->
-            <div class="section-header mt-4">Productos</div>
-            <div id="productos">
-                @for (int i = 0; i < Model.Productos.Count; i++)
-                {
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Descripción" asp-for="Productos[@i].Descripcion" required />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" class="form-control" placeholder="Cantidad" asp-for="Productos[@i].Cantidad" required />
-                            </div>
-                            <div class="col-md-3">
-                                <input type="number" step="0.01" class="form-control" placeholder="Precio" asp-for="Productos[@i].Precio" required />
-                            </div>
-                        </div>
-                }
+            <div class="section-header mt-4">Detalle Factura</div>
+
+            <!-- Encabezados de las columnas -->
+            <div class="table-responsive">
+                <table class="table table-bordered mt-2">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos">
+                        @for (int i = 0; i < Model.Productos.Count; i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="text" class="form-control" placeholder="Descripción" asp-for="Productos[@i].Descripcion" required />
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" placeholder="Cantidad" asp-for="Productos[@i].Cantidad" required />
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" class="form-control" placeholder="Precio" asp-for="Productos[@i].Precio" required />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
 
             <!-- Botón para agregar más productos -->
@@ -60,9 +130,26 @@
             <div class="row mt-4">
                 <div class="col-md-8"></div>
                 <div class="col-md-4">
-                    <p><strong>Sub Total:</strong> @Model.SubTotal.ToString("C")</p>
-                    <p><strong>IVA:</strong> @Model.IVA.ToString("C")</p>
-                    <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
+                    <div class="total-card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Totales</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="d-flex justify-content-between">
+                                <span>Sub Total:</span>
+                                <span>@Model.SubTotal.ToString("C")</span>
+                            </p>
+                            <p class="d-flex justify-content-between">
+                                <span class="text-danger">IVA:</span>
+                                <span class="text-danger">@Model.IVA.ToString("C")</span>
+                            </p>
+                            <hr>
+                            <p class="d-flex justify-content-between font-weight-bold">
+                                <span>Total:</span>
+                                <span class="font-weight-bold">@Model.Total.ToString("C")</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -75,17 +162,17 @@
         function addProduct() {
             var productosDiv = document.getElementById("productos");
             var newProductHtml = `
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="Descripción" name="Productos[${productosDiv.children.length}].Descripcion" required />
-                    </div>
-                    <div class="col-md-3">
-                        <input type="number" class="form-control" placeholder="Cantidad" name="Productos[${productosDiv.children.length}].Cantidad" required />
-                    </div>
-                    <div class="col-md-3">
-                        <input type="number" step="0.01" class="form-control" placeholder="Precio" name="Productos[${productosDiv.children.length}].Precio" required />
-                    </div>
-                </div>`;
+                                <tr>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Descripción" name="Productos[${productosDiv.children.length}].Descripcion" required />
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" placeholder="Cantidad" name="Productos[${productosDiv.children.length}].Cantidad" required />
+                                    </td>
+                                    <td>
+                                        <input type="number" step="0.01" class="form-control" placeholder="Precio" name="Productos[${productosDiv.children.length}].Precio" required />
+                                    </td>
+                                </tr>`;
             productosDiv.insertAdjacentHTML('beforeend', newProductHtml);
         }
     </script>
