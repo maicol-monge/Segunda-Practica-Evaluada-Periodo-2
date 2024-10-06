@@ -1,4 +1,4 @@
-﻿@model FacturaViewModel
+﻿@model Factura
 
 <!DOCTYPE html>
 <html lang="es">
@@ -6,51 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura @Model.NumeroFactura</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .header-logo {
-            width: 100px;
-        }
-
-        .invoice-header {
-            text-align: right;
-        }
-
-        .invoice-number {
-            font-weight: bold;
-        }
-
-        .section-header {
-            background-color: #F8C3C3;
-            padding: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-
-        .calculate-btn {
-            background-color: #2E79F8;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 25px;
-            width: 100%;
-        }
-
-        .contact-info, .footer-info {
-            font-size: 12px;
-        }
-
-        .total-section {
-            background-color: #F8C3C3;
-            padding: 10px;
-            text-align: right;
-        }
-
-        .table th, .table td {
-            vertical-align: middle;
-        }
+        .header-logo { width: 100px; }
+        .invoice-header { text-align: right; }
+        .invoice-number { font-weight: bold; }
+        .section-header { background-color: #F8C3C3; padding: 10px; text-transform: uppercase; font-weight: bold; }
+        .calculate-btn { background-color: #2E79F8; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 25px; width: 100%; }
+        .contact-info, .footer-info { font-size: 12px; }
+        .total-section { background-color: #F8C3C3; padding: 10px; text-align: right; }
+        .table th, .table td { vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -64,7 +29,6 @@
             </div>
         </div>
 
-        <!-- Información de contacto -->
         <div class="mt-4">
             <div class="section-header">Información de Contacto</div>
             <div class="row mt-2">
@@ -82,7 +46,6 @@
             </div>
         </div>
 
-        <!-- Tabla de productos -->
         <div class="table-responsive mt-4">
             <table class="table table-bordered text-center">
                 <thead class="section-header">
@@ -95,17 +58,16 @@
                 <tbody>
                     @foreach (var producto in Model.Productos)
                     {
-                        <tr>
-                            <td>@producto.Descripcion</td>
-                            <td>@producto.Cantidad</td>
-                            <td>@producto.Precio.ToString("C")</td>
-                        </tr>
+                            <tr>
+                                <td>@producto.Descripcion</td>
+                                <td>@producto.Cantidad</td>
+                                <td>@producto.Precio.ToString("C")</td>
+                            </tr>
                     }
                 </tbody>
             </table>
         </div>
 
-        <!-- Sección de totales -->
         <div class="row">
             <div class="col-md-8"></div>
             <div class="col-md-4">
@@ -117,23 +79,20 @@
             </div>
         </div>
 
-        <!-- Botón de calcular -->
         <div class="row mt-3">
             <div class="col-md-4 offset-md-8">
                 <button class="calculate-btn">CALCULAR</button>
             </div>
         </div>
 
-        <!-- Pie de página -->
         <div class="mt-5 text-center footer-info">
             <p>1234-5678 | hola@sitioincreible.com | Calle Cualquiera 123, Cualquier Lugar</p>
             <p>www.sitioincreible.com</p>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> *@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
