@@ -3,178 +3,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generar Factura</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f4f4f9;
-        }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Generar Factura</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			background-color: #f4f4f9;
+		}
 
-        .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
+		.container {
+			background: white;
+			border-radius: 8px;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+		}
 
-        .section-header {
-            background-color: #2E79F8;
-            color: white;
-            padding: 10px;
-            text-transform: uppercase;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+		.section-header {
+			background-color: #2E79F8;
+			color: white;
+			padding: 10px;
+			text-transform: uppercase;
+			font-weight: bold;
+			border-radius: 5px;
+			margin-bottom: 20px;
+		}
 
-        .table-bordered th, .table-bordered td {
-            border: 2px solid #dee2e6;
-        }
+		.table-bordered th, .table-bordered td {
+			border: 2px solid #dee2e6;
+		}
 
-        .table th {
-            text-align: center;
-        }
+		.table th {
+			text-align: center;
+		}
 
-        .total-card {
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            background-color: #f8f9fa;
-        }
+		.total-card {
+			border: 1px solid #dee2e6;
+			border-radius: 5px;
+			padding: 15px;
+			background-color: #f8f9fa;
+		}
 
-            .total-card .card-header {
-                background-color: #2E79F8;
-                color: white;
-            }
+		.total-card .card-header {
+			background-color: #2E79F8;
+			color: white;
+		}
 
-        .btn-secondary {
-            background-color: #6c757d;
-            border: none;
-        }
+		.btn-secondary {
+			background-color: #6c757d;
+			border: none;
+		}
 
-            .btn-secondary:hover {
-                background-color: #5a6268;
-            }
+		.btn-secondary:hover {
+			background-color: #5a6268;
+		}
 
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
+		.btn-primary {
+			background-color: #007bff;
+			border: none;
+		}
 
-            .btn-primary:hover {
-                background-color: #0056b3;
-            }
-    </style>
+		.btn-primary:hover {
+			background-color: #0056b3;
+		}
+
+		.btn-danger {
+			background-color: #dc3545;
+			border: none;
+		}
+
+		.btn-danger:hover {
+			background-color: #c82333;
+		}
+	</style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Generar Factura</h2>
-        <form asp-action="Factura" method="post">
-            <!-- Información de contacto -->
-            <div class="section-header">Información de Contacto</div>
-            <div class="row mt-2">
-                <div class="col-md-6">
-                    <label>Nombre y Apellido</label>
-                    <input type="text" class="form-control" asp-for="NombreCliente" required />
-                </div>
-                <div class="col-md-6">
-                    <label>Teléfono</label>
-                    <input type="text" class="form-control" asp-for="TelefonoCliente" required />
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label>Dirección</label>
-                    <input type="text" class="form-control" asp-for="DireccionCliente" required />
-                </div>
-            </div>
 
-            <!-- Productos -->
-            <div class="section-header mt-4">Detalle Factura</div>
+	<div class="container mt-2">
+		<div class="d-flex justify-content-between align-items-center">
+		<img src="~/images/Logo Moo.png" alt="" class="w-25">
+		<div>
+			<h2 class="text-end mb-4">Factura</h2>
+			<h6 class="text-end mb-4">N° 01234</h6>
+		</div>
+	</div>
 
-            <!-- Encabezados de las columnas -->
-            <div class="table-responsive">
-                <table class="table table-bordered mt-2">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Descripción</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productos">
-                        @for (int i = 0; i < Model.Productos.Count; i++)
-                        {
-                            <tr>
-                                <td>
-                                    <input type="text" class="form-control" placeholder="Descripción" asp-for="Productos[@i].Descripcion" required />
-                                </td>
-                                <td>
-                                    <input type="number" class="form-control" placeholder="Cantidad" asp-for="Productos[@i].Cantidad" required />
-                                </td>
-                                <td>
-                                    <input type="number" step="0.01" class="form-control" placeholder="Precio" asp-for="Productos[@i].Precio" required />
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+		<form asp-action="Factura" method="post">
+			<!-- Información de contacto -->
+			<div class="section-header">Información de Contacto</div>
+			<div class="row mt-2">
+				<div class="col-md-6">
+					<label>Nombre y Apellido</label>
+					<input type="text" class="form-control" asp-for="NombreCliente" required />
+				</div>
+				<div class="col-md-6">
+					<label>Teléfono</label>
+					<input type="text" class="form-control" asp-for="TelefonoCliente" required />
+				</div>
+			</div>
+			<div class="row mt-2">
+				<div class="col-md-12">
+					<label>Dirección</label>
+					<input type="text" class="form-control" asp-for="DireccionCliente" required />
+				</div>
+			</div>
 
-            <!-- Botón para agregar más productos -->
-            <button type="button" class="btn btn-secondary mt-3" onclick="addProduct()">Agregar Producto</button>
+			<!-- Productos -->
+			<div class="section-header mt-4">Detalle Factura</div>
 
-            <!-- Totales -->
-            <div class="row mt-4">
-                <div class="col-md-8"></div>
-                <div class="col-md-4">
-                    <div class="total-card">
-                        <div class="card-header">
-                            <h5 class="mb-0">Totales</h5>
-                        </div>
-                        <div class="card-body">
-                            <p class="d-flex justify-content-between">
-                                <span>Sub Total:</span>
-                                <span>@Model.SubTotal.ToString("C")</span>
-                            </p>
-                            <p class="d-flex justify-content-between">
-                                <span class="text-danger">IVA:</span>
-                                <span class="text-danger">@Model.IVA.ToString("C")</span>
-                            </p>
-                            <hr>
-                            <p class="d-flex justify-content-between font-weight-bold">
-                                <span>Total:</span>
-                                <span class="font-weight-bold">@Model.Total.ToString("C")</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<!-- Encabezados de las columnas -->
+			<div class="table-responsive">
+				<table class="table table-bordered mt-2">
+					<thead class="thead-light">
+						<tr>
+							<th>Descripción</th>
+							<th>Cantidad</th>
+							<th>Precio</th>
+							<th>Acciones</th>
+						</tr>
+					</thead>
+					<tbody id="productos">
+						@for (int i = 0; i < Model.Productos.Count; i++)
+						{
+									<tr>
+										<td>
+											<input type="text" class="form-control" placeholder="Descripción" asp-for="Productos[@i].Descripcion" required />
+										</td>
+										<td>
+											<input type="number" class="form-control" placeholder="Cantidad" asp-for="Productos[@i].Cantidad" min="1" required />
+										</td>
+										<td>
+											<input type="number" step="0.01" class="form-control" placeholder="Precio" asp-for="Productos[@i].Precio" min="0.01" required />
+										</td>
+										<td>
+											<button type="button" class="btn btn-danger" onclick="removeProduct(this)">Eliminar</button>
+										</td>
+									</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 
-            <!-- Botón para enviar el formulario -->
-            <button type="submit" class="btn btn-primary mt-3">Calcular Total</button>
-        </form>
-    </div>
+			<!-- Botón para agregar más productos -->
+			<button type="button" class="btn btn-secondary mt-3" onclick="addProduct()">Agregar Producto</button>
 
-    <script>
-        function addProduct() {
-            var productosDiv = document.getElementById("productos");
-            var newProductHtml = `
-                                <tr>
-                                    <td>
-                                        <input type="text" class="form-control" placeholder="Descripción" name="Productos[${productosDiv.children.length}].Descripcion" required />
-                                    </td>
-                                    <td>
-                                        <input type="number" class="form-control" placeholder="Cantidad" name="Productos[${productosDiv.children.length}].Cantidad" required />
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.01" class="form-control" placeholder="Precio" name="Productos[${productosDiv.children.length}].Precio" required />
-                                    </td>
-                                </tr>`;
-            productosDiv.insertAdjacentHTML('beforeend', newProductHtml);
-        }
-    </script>
+			<!-- Totales -->
+			<div class="row mt-4">
+				<div class="col-md-8"></div>
+				<div class="col-md-4">
+					<div class="total-card">
+						<div class="card-header">
+							<h5 class="mb-0">Totales</h5>
+						</div>
+						<div class="card-body">
+							<p class="d-flex justify-content-between">
+								<span>Sub Total:</span>
+								<span>@Model.SubTotal.ToString("C")</span>
+							</p>
+							<p class="d-flex justify-content-between">
+								<span class="text-danger">IVA:</span>
+								<span class="text-danger">@Model.IVA.ToString("C")</span>
+							</p>
+							<hr>
+							<p class="d-flex justify-content-between font-weight-bold">
+								<span>Total:</span>
+								<span class="font-weight-bold">@Model.Total.ToString("C")</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Botón para enviar el formulario -->
+			<div class="d-flex justify-content-end">
+				<button type="submit" class="btn btn-primary mt-3">Calcular Total</button>
+			</div>
+
+		</form>
+	</div>
+
+	<script>
+	function addProduct() {
+		var productosDiv = document.getElementById("productos");
+		var newProductHtml = `
+			<tr>
+				<td>
+					<input type="text" class="form-control" placeholder="Descripción" name="Productos[${productosDiv.children.length}].Descripcion" required />
+				</td>
+				<td>
+					<input type="number" class="form-control" placeholder="Cantidad" name="Productos[${productosDiv.children.length}].Cantidad" min="1" required />
+				</td>
+				<td>
+					<input type="number" step="0.01" class="form-control" placeholder="Precio" name="Productos[${productosDiv.children.length}].Precio" min="0.01" required />
+				</td>
+				<td>
+					<button type="button" class="btn btn-danger" onclick="removeProduct(this)">Eliminar</button>
+				</td>
+			</tr>`;
+		productosDiv.insertAdjacentHTML('beforeend', newProductHtml);
+	}
+
+	function removeProduct(button) {
+		var row = button.closest('tr');
+		row.remove();
+		updateProductIndices();
+	}
+
+	function updateProductIndices() {
+		var productosDiv = document.getElementById("productos");
+		var rows = productosDiv.children;
+		for (var i = 0; i < rows.length; i++) {
+			rows[i].querySelector('input[name^="Productos["]').setAttribute("name", `Productos[${i}].Descripcion`);
+			rows[i].querySelector('input[name^="Productos["][placeholder="Cantidad"]').setAttribute("name", `Productos[${i}].Cantidad`);
+			rows[i].querySelector('input[name^="Productos["][placeholder="Precio"]').setAttribute("name", `Productos[${i}].Precio`);
+		}
+	}
+</script>
+	</script>
 </body>
 </html>

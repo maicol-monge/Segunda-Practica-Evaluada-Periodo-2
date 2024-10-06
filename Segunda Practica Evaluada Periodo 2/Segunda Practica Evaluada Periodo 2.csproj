@@ -7,4 +7,8 @@
     <RootNamespace>Segunda_Practica_Evaluada_Periodo_2</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>
