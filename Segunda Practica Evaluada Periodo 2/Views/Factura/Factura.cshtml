@@ -1,27 +1,33 @@
-﻿<!DOCTYPE html>
+﻿@model FacturaViewModel
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura</title>
+    <title>Factura @Model.NumeroFactura</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .header-logo {
             width: 100px;
         }
+
         .invoice-header {
             text-align: right;
         }
+
         .invoice-number {
             font-weight: bold;
         }
+
         .section-header {
             background-color: #F8C3C3;
             padding: 10px;
             text-transform: uppercase;
             font-weight: bold;
         }
+
         .calculate-btn {
             background-color: #2E79F8;
             color: white;
@@ -31,14 +37,17 @@
             border-radius: 25px;
             width: 100%;
         }
+
         .contact-info, .footer-info {
             font-size: 12px;
         }
+
         .total-section {
             background-color: #F8C3C3;
             padding: 10px;
             text-align: right;
         }
+
         .table th, .table td {
             vertical-align: middle;
         }
@@ -48,32 +57,32 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <img src="imagenes\Logo Moo.png" alt="Mi Empresa" class="header-logo">
+                <img src="~/images/logo.png" alt="Mi Empresa" class="header-logo">
             </div>
             <div class="col-md-6 text-right invoice-header">
-                <h4 class="invoice-number">FACTURA Nº 01234</h4>
+                <h4 class="invoice-number">FACTURA Nº @Model.NumeroFactura</h4>
             </div>
         </div>
 
-        <!-- Contact Information -->
+        <!-- Información de contacto -->
         <div class="mt-4">
             <div class="section-header">Información de Contacto</div>
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <p><strong>Nombre y Apellido:</strong> _____________________</p>
+                    <p><strong>Nombre y Apellido:</strong> @Model.NombreCliente</p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Teléfono:</strong> __________________________</p>
+                    <p><strong>Teléfono:</strong> @Model.TelefonoCliente</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p><strong>Dirección:</strong> _____________________________________________</p>
+                    <p><strong>Dirección:</strong> @Model.DireccionCliente</p>
                 </div>
             </div>
         </div>
 
-        <!-- Table for invoice details -->
+        <!-- Tabla de productos -->
         <div class="table-responsive mt-4">
             <table class="table table-bordered text-center">
                 <thead class="section-header">
@@ -84,45 +93,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Producto 1</td>
-                        <td>1</td>
-                        <td>$0</td>
-                    </tr>
-                    <tr>
-                        <td>Producto 2</td>
-                        <td>2</td>
-                        <td>$0</td>
-                    </tr>
-                    <tr>
-                        <td>Producto 3</td>
-                        <td>3</td>
-                        <td>$0</td>
-                    </tr>
+                    @foreach (var producto in Model.Productos)
+                    {
+                        <tr>
+                            <td>@producto.Descripcion</td>
+                            <td>@producto.Cantidad</td>
+                            <td>@producto.Precio.ToString("C")</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
 
-        <!-- Total section -->
+        <!-- Sección de totales -->
         <div class="row">
             <div class="col-md-8"></div>
             <div class="col-md-4">
                 <div class="total-section">
-                    <p><strong>Sub Total:</strong> $0</p>
-                    <p><strong>IVA:</strong> $0</p>
-                    <p><strong>Total:</strong> $0</p>
+                    <p><strong>Sub Total:</strong> @Model.SubTotal.ToString("C")</p>
+                    <p><strong>IVA:</strong> @Model.IVA.ToString("C")</p>
+                    <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
                 </div>
             </div>
         </div>
 
-        <!-- Calculate button -->
+        <!-- Botón de calcular -->
         <div class="row mt-3">
             <div class="col-md-4 offset-md-8">
                 <button class="calculate-btn">CALCULAR</button>
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Pie de página -->
         <div class="mt-5 text-center footer-info">
             <p>1234-5678 | hola@sitioincreible.com | Calle Cualquiera 123, Cualquier Lugar</p>
             <p>www.sitioincreible.com</p>
@@ -131,8 +133,7 @@
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-   
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
