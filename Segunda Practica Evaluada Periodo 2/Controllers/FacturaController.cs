@@ -5,26 +5,27 @@ namespace Segunda_Practica_Evaluada_Periodo_2.Controllers
 {
 	public class FacturaController : Controller
 	{
-		public IActionResult Factura()
-		{
-            var factura = new Factura
-            {
-                NumeroFactura = "001",
-                NombreCliente = "Juan Pérez",
-                TelefonoCliente = "1234-5678",
-                DireccionCliente = "Calle Ejemplo 123",
-                Productos = new List<Producto>
-            {
-                new Producto { Descripcion = "Producto 1", Cantidad = 2, Precio = 10.50m },
-                new Producto { Descripcion = "Producto 2", Cantidad = 1, Precio = 20.00m }
-            },
-                SubTotal = 41.00m,
-                IVA = 8.20m,
-                Total = 49.20m
-            };
-
-            return View(factura);
-
+		
+        public IActionResult Factura()
+        {
+            var model = new Factura();
+            return View(model);
         }
-	}
+
+        
+        [HttpPost]
+        public IActionResult Factura(Factura model)
+        {
+            Random random = new Random();
+            int numeroAleatorio = random.Next(1000, 1000000);
+            model.NumeroFactura = numeroAleatorio;
+            
+            model.SubTotal = model.Productos.Sum(p => p.Precio * p.Cantidad);
+            model.IVA = model.SubTotal * 0.14m; 
+            model.Total = model.SubTotal + model.IVA;
+
+            
+            return View(model);
+        }
+    }
 }

@@ -5,94 +5,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Factura @Model.NumeroFactura</title>
+    <title>Generar Factura</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .header-logo { width: 100px; }
-        .invoice-header { text-align: right; }
-        .invoice-number { font-weight: bold; }
         .section-header { background-color: #F8C3C3; padding: 10px; text-transform: uppercase; font-weight: bold; }
-        .calculate-btn { background-color: #2E79F8; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 25px; width: 100%; }
-        .contact-info, .footer-info { font-size: 12px; }
-        .total-section { background-color: #F8C3C3; padding: 10px; text-align: right; }
-        .table th, .table td { vertical-align: middle; }
     </style>
 </head>
 <body>
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="~/images/logo.png" alt="Mi Empresa" class="header-logo">
-            </div>
-            <div class="col-md-6 text-right invoice-header">
-                <h4 class="invoice-number">FACTURA Nº @Model.NumeroFactura</h4>
-            </div>
-        </div>
-
-        <div class="mt-4">
+        <h2>Generar Factura</h2>
+        <form asp-action="Factura" method="post">
+            <!-- Información de contacto -->
             <div class="section-header">Información de Contacto</div>
             <div class="row mt-2">
                 <div class="col-md-6">
-                    <p><strong>Nombre y Apellido:</strong> @Model.NombreCliente</p>
+                    <label>Nombre y Apellido</label>
+                    <input type="text" class="form-control" asp-for="NombreCliente" required />
                 </div>
                 <div class="col-md-6">
-                    <p><strong>Teléfono:</strong> @Model.TelefonoCliente</p>
+                    <label>Teléfono</label>
+                    <input type="text" class="form-control" asp-for="TelefonoCliente" required />
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-md-12">
-                    <p><strong>Dirección:</strong> @Model.DireccionCliente</p>
+                    <label>Dirección</label>
+                    <input type="text" class="form-control" asp-for="DireccionCliente" required />
                 </div>
             </div>
-        </div>
 
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered text-center">
-                <thead class="section-header">
-                    <tr>
-                        <th>Descripción</th>
-                        <th>Cantidad</th>
-                        <th>Precio</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var producto in Model.Productos)
-                    {
-                            <tr>
-                                <td>@producto.Descripcion</td>
-                                <td>@producto.Cantidad</td>
-                                <td>@producto.Precio.ToString("C")</td>
-                            </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+            <!-- Productos -->
+            <div class="section-header mt-4">Productos</div>
+            <div id="productos">
+                @for (int i = 0; i < Model.Productos.Count; i++)
+                {
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Descripción" asp-for="Productos[@i].Descripcion" required />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control" placeholder="Cantidad" asp-for="Productos[@i].Cantidad" required />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" step="0.01" class="form-control" placeholder="Precio" asp-for="Productos[@i].Precio" required />
+                            </div>
+                        </div>
+                }
+            </div>
 
-        <div class="row">
-            <div class="col-md-8"></div>
-            <div class="col-md-4">
-                <div class="total-section">
+            <!-- Botón para agregar más productos -->
+            <button type="button" class="btn btn-secondary mt-3" onclick="addProduct()">Agregar Producto</button>
+
+            <!-- Totales -->
+            <div class="row mt-4">
+                <div class="col-md-8"></div>
+                <div class="col-md-4">
                     <p><strong>Sub Total:</strong> @Model.SubTotal.ToString("C")</p>
                     <p><strong>IVA:</strong> @Model.IVA.ToString("C")</p>
                     <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
                 </div>
             </div>
-        </div>
 
-        <div class="row mt-3">
-            <div class="col-md-4 offset-md-8">
-                <button class="calculate-btn">CALCULAR</button>
-            </div>
-        </div>
-
-        <div class="mt-5 text-center footer-info">
-            <p>1234-5678 | hola@sitioincreible.com | Calle Cualquiera 123, Cualquier Lugar</p>
-            <p>www.sitioincreible.com</p>
-        </div>
+            <!-- Botón para enviar el formulario -->
+            <button type="submit" class="btn btn-primary mt-3">Calcular Total</button>
+        </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script> *@
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function addProduct() {
+            var productosDiv = document.getElementById("productos");
+            var newProductHtml = `
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Descripción" name="Productos[${productosDiv.children.length}].Descripcion" required />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" class="form-control" placeholder="Cantidad" name="Productos[${productosDiv.children.length}].Cantidad" required />
+                    </div>
+                    <div class="col-md-3">
+                        <input type="number" step="0.01" class="form-control" placeholder="Precio" name="Productos[${productosDiv.children.length}].Precio" required />
+                    </div>
+                </div>`;
+            productosDiv.insertAdjacentHTML('beforeend', newProductHtml);
+        }
+    </script>
 </body>
 </html>
