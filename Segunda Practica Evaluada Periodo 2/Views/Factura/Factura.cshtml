@@ -1,5 +1,138 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header-logo {
+            width: 100px;
+        }
+        .invoice-header {
+            text-align: right;
+        }
+        .invoice-number {
+            font-weight: bold;
+        }
+        .section-header {
+            background-color: #F8C3C3;
+            padding: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        .calculate-btn {
+            background-color: #2E79F8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            width: 100%;
+        }
+        .contact-info, .footer-info {
+            font-size: 12px;
+        }
+        .total-section {
+            background-color: #F8C3C3;
+            padding: 10px;
+            text-align: right;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="imagenes\Logo Moo.png" alt="Mi Empresa" class="header-logo">
+            </div>
+            <div class="col-md-6 text-right invoice-header">
+                <h4 class="invoice-number">FACTURA Nº 01234</h4>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="mt-4">
+            <div class="section-header">Información de Contacto</div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <p><strong>Nombre y Apellido:</strong> _____________________</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Teléfono:</strong> __________________________</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p><strong>Dirección:</strong> _____________________________________________</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table for invoice details -->
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered text-center">
+                <thead class="section-header">
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Producto 1</td>
+                        <td>1</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Producto 2</td>
+                        <td>2</td>
+                        <td>$0</td>
+                    </tr>
+                    <tr>
+                        <td>Producto 3</td>
+                        <td>3</td>
+                        <td>$0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Total section -->
+        <div class="row">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
+                <div class="total-section">
+                    <p><strong>Sub Total:</strong> $0</p>
+                    <p><strong>IVA:</strong> $0</p>
+                    <p><strong>Total:</strong> $0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculate button -->
+        <div class="row mt-3">
+            <div class="col-md-4 offset-md-8">
+                <button class="calculate-btn">CALCULAR</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-5 text-center footer-info">
+            <p>1234-5678 | hola@sitioincreible.com | Calle Cualquiera 123, Cualquier Lugar</p>
+            <p>www.sitioincreible.com</p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
